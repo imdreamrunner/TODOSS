@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>TODOSS</title>
+
+    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="./js/angular-local-storage.min.js"></script>
+    <script src="./js/helper.js"></script>
+    <script src="./js/app.js"></script>
+</head>
+<body ng-controller="TodoController">
+
+
+<h1 ng-dblclick="clear()"><span class="todo">TOD</span><span class="oss"><span class="todo">O</span>SS</span></h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form ng-submit="addTodo()">
+                <input id="new-todo" type="text" placeholder="What's in your mind?" ng-model="newTodoText"
+                       autocomplete="off">
+                <input type="submit" class="hidden">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="todo-list">
+                <li ng-repeat="(id, item) in todoList" ng-show="showItem(id)" ng-dblclick="deleteItem(id)">
+                    <div class="item" ng-class="itemClass(id)">
+                        <div class="status" ng-click="toggle(id)"></div>
+                        <div class="text">{{ item.text }}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" id="info-bar">
+        <div class="col-md-6" id="item-count">{{ itemCountDisplay() }}</div>
+        <div class="col-md-6" id="status-selector">
+            <div class="btn btn-sm" ng-click="setDisplay('all')" ng-class="displayClass('all')">All</div>
+            <div class="btn btn-sm" ng-click="setDisplay('active')" ng-class="displayClass('active')">Active</div>
+            <div class="btn btn-sm" ng-click="setDisplay('done')" ng-class="displayClass('done')">Done</div>
+        </div>
+    </div>
+</div>
+
+<div id="copyright">
+    Made with &#x2661; by NTUOSS
+</div>
+
+</body>
+</html>
